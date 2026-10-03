@@ -61,6 +61,21 @@ CASES = [
         "check": lambda r: "brand_contracts_onboarding.txt" in r["sources"],
         "description": "retrieves the onboarding process document",
     },
+    {
+        "question": "What is the difference between ACoS and TACoS?",
+        "check": lambda r: "advertising_and_pricing.txt" in r["sources"],
+        "description": "retrieves the advertising/pricing document",
+    },
+    {
+        "question": "How should I handle a customer complaint about counterfeit products?",
+        "check": lambda r: "customer_experience_returns.txt" in r["sources"],
+        "description": "retrieves the customer experience/returns document",
+    },
+    {
+        "question": "Do I need to register for VAT if I store inventory in Germany?",
+        "check": lambda r: "multichannel_and_compliance.txt" in r["sources"],
+        "description": "retrieves the multi-channel/tax-compliance document",
+    },
     # --- structured: exact lookup ---
     {
         "question": "Tell me about WPB-1004",

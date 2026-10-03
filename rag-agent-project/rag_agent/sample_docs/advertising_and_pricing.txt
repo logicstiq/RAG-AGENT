@@ -1,0 +1,55 @@
+Advertising and Pricing Strategy
+
+Advertising and pricing are run as one connected system in marketplace
+e-commerce, not two separate functions, because a price change shifts ad
+efficiency and an ad budget change shifts the price a product can
+profitably sell at.
+
+Sponsored Products is the baseline ad type on Amazon: keyword- or
+product-targeted ads that show in search results and on competitor detail
+pages, charged on a cost-per-click (CPC) basis through an auction. Sponsored
+Brands adds a branded headline and multiple products in a single ad unit,
+typically used higher in the funnel to build awareness rather than drive
+immediate conversion. DSP (Demand-Side Platform) runs programmatic display
+and video ads both on and off Amazon, usually reserved for larger budgets
+aimed at retargeting or upper-funnel reach rather than direct-response
+conversion.
+
+ACoS (Advertising Cost of Sale) measures ad spend as a percentage of the
+sales that specific ad generated -- a campaign-level efficiency metric.
+TACoS (Total Advertising Cost of Sale) instead divides total ad spend by
+total sales, organic included, which is the more honest long-term metric
+because a campaign can have a terrible ACoS while still profitably pulling
+organic sales upward through improved ranking. Chasing a low ACoS on every
+individual campaign can actually suppress overall growth if it means
+turning off campaigns that were driving organic lift the ACoS number
+doesn't capture.
+
+Bid management follows a standard cycle: start with broad or automatic
+targeting to discover which search terms actually convert, harvest the
+converting terms into their own tightly-controlled exact-match campaigns,
+and negative-match the terms that spent money without converting. This
+harvesting cycle typically runs on a 1-2 week cadence for an active
+account; running it less frequently lets budget leak into non-converting
+terms for longer than necessary.
+
+Pricing strategy on a marketplace is rarely static. A common approach,
+especially for a new listing or a new market entry, is to launch at a
+deliberately high price relative to competitors, then test price
+reductions on a defined cadence against conversion rate and margin impact,
+with guardrails on how far price can move before requiring approval --
+the same pricing architecture used in new-market brand onboarding.
+Lightning Deals and coupons are short-duration promotional price cuts that
+trade margin for a visibility boost (a "deal" badge, placement in deal
+pages) and are usually budgeted as a distinct line separate from everyday
+pricing, since the sales lift during a deal period is not a reliable
+predictor of post-deal baseline velocity.
+
+The dependency worth remembering: raising price without adjusting ad bids
+can make a previously-profitable keyword unprofitable overnight, because
+the same CPC now represents a smaller fraction of a now-larger margin
+cushion -- or the inverse, where a price cut makes a keyword suddenly
+worth bidding much more aggressively on. Pricing and advertising decisions
+made by two different people without a shared view of contribution margin
+are a common source of silently eroding profitability that doesn't show up
+until a monthly P&L review.

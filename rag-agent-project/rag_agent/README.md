@@ -195,6 +195,24 @@ side through to the operational side of running an e-commerce brand:
   how a stranded listing quietly corrupts a demand forecast, how variation
   errors split demand signal, why a velocity drop should be checked against
   listing status before any inventory action
+- **`advertising_and_pricing.txt`** — Sponsored Products/Brands/DSP, ACoS
+  vs. TACoS, the bid-harvesting cycle, and how pricing and ad-bid decisions
+  made without a shared contribution-margin view silently erode profitability
+- **`customer_experience_returns.txt`** — account health metrics (ODR, VOC),
+  compliant review-management rules, the customer-facing return policy vs.
+  the operational reverse-logistics process as two different things, and
+  complaint escalation tiers
+- **`multichannel_and_compliance.txt`** — Walmart Marketplace and WFS,
+  TikTok Shop's spikier demand model, DTC storefront ownership trade-offs,
+  and cross-border VAT/US sales-tax obligations that persist independently
+  of any single marketplace's own rules
+
+This set now genuinely spans commercial model → catalog → contracts/
+onboarding → advertising/pricing → customer experience → supply chain →
+multi-channel/compliance — a real commercial-to-supply-chain arc, though
+still not "every function of e-commerce" in the broadest possible sense
+(no deep HR/team-structure content, no UX/design content). Worth naming
+accurately rather than oversold.
 
 This is real, substantive domain content (not filler), and it's the reason
 the graph-linking feature actually has something to demonstrate: ask "what

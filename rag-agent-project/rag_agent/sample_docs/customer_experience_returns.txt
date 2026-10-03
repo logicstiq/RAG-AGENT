@@ -1,0 +1,57 @@
+Customer Experience, Reviews, and Returns Policy
+
+Customer experience on a marketplace is measured and defended differently
+than in a DTC store, because the marketplace itself (not the brand) owns
+the primary customer relationship and sets the rules the brand has to
+operate inside.
+
+Account health metrics are the marketplace's own scorecard for a seller:
+Order Defect Rate (ODR, combining negative feedback, A-to-Z claims, and
+chargebacks), Late Shipment Rate, Valid Tracking Rate, and Customer Voice
+(VOC), which aggregates recent customer sentiment signals into a health
+flag independent of the star rating shown on the listing itself. These
+thresholds are enforced automatically -- cross them and a seller can lose
+the ability to list new products or, at the extreme, have the account
+suspended, regardless of overall sales performance.
+
+Review management operates under strict marketplace rules: a seller
+cannot ask a customer to change or remove a negative review, cannot offer
+compensation in exchange for a review, and cannot review-gate (only
+request reviews from customers believed to be satisfied). The compliant
+lever is a generic post-purchase review request sent to every customer
+through the marketplace's own request-a-review mechanism, plus genuinely
+fixing the product or listing issue driving negative reviews in the first
+place -- reviews are a lagging indicator of product and listing quality,
+not something to be separately "managed" in isolation from fixing what
+they're actually complaining about.
+
+Return policy has both a marketplace-mandated floor and brand-level
+choices above it. Marketplaces typically require accepting returns within
+a minimum window (commonly 30 days) for most categories, with limited
+exceptions (certain consumables, hazardous materials, final-sale items
+clearly marked at purchase). Above that floor, a brand can choose to offer
+a longer window or a more generous policy (no-questions-asked returns, a
+prepaid return label on every order) as a competitive differentiator,
+trading a higher return-processing cost for better reviews and repeat
+purchase rate.
+
+The customer-facing return policy and the operational reverse-logistics
+process are two different things that should stay connected: the policy
+is what the customer is promised (how many days, who pays return
+shipping, refund vs. exchange), while reverse logistics is how a returned
+unit's condition is actually assessed and routed once it comes back. A
+generous customer-facing policy with a slow or under-resourced reverse
+logistics process creates a gap where customers are promised fast refunds
+the operations team can't actually deliver, which shows up as support
+escalations and VOC complaints that look like a service problem but
+actually originate from an operations capacity problem.
+
+Escalation handling for customer complaints typically tiers by severity:
+routine return/refund requests handled through standard self-service
+flows; product safety or quality complaints routed to a dedicated review
+queue regardless of volume, since these carry account-health and
+liability risk disproportionate to their frequency; and complaints that
+reference a policy violation (counterfeit claims, IP complaints) routed
+to a compliance-specific escalation path rather than general customer
+service, since these need documentation and a different response
+standard than a routine complaint.

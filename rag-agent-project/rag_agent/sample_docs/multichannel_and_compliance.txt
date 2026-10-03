@@ -1,0 +1,62 @@
+Multi-Channel Operations and Cross-Border Tax Compliance
+
+Running a brand across several marketplaces at once means the same
+product often needs a genuinely different operational setup per channel,
+not just a copy-pasted listing -- and cross-border selling adds a tax
+compliance layer that exists independently of any single marketplace's
+rules.
+
+Walmart Marketplace shares conceptual ground with Amazon 3P (seller-owned
+inventory, seller-set pricing) but runs its own content standards, its
+own fulfillment program (Walmart Fulfillment Services, WFS, functionally
+similar to FBA but a separate inventory pool), and its own performance
+scorecard with different thresholds and consequences than Amazon's
+account health metrics. A seller operating both channels typically keeps
+separate safety stock and reorder calculations per channel rather than
+pooling inventory, since a stockout on one channel doesn't free up units
+sitting in the other channel's fulfillment network in time to matter.
+
+TikTok Shop operates on a fundamentally different discovery model: sales
+are driven by short-form video and livestream commerce rather than search
+intent, so demand is far spikier and less forecastable from historical
+velocity alone -- a single viral video can move more units in a day than
+a month of steady-state sales, which breaks a reorder point calculation
+built on average daily demand. Brands active here typically run thinner
+per-SKU inventory commitments and lean more on fast replenishment lead
+times than on large safety stock buffers, accepting a higher stockout
+risk in exchange for not overcommitting capital to a demand curve that
+can be driven by a single piece of content.
+
+A DTC storefront (Shopify or similar) is the one channel where the brand
+controls content, pricing, and the full customer data relationship with
+no marketplace rules in between -- but it also means the brand owns
+traffic generation (search, social, email, paid acquisition) entirely on
+its own, with no marketplace search traffic to lean on. Fulfillment here
+is either self-managed, run through a 3PL, or increasingly fulfilled from
+the same inventory pool as a marketplace channel (Amazon's
+Multi-Channel Fulfillment lets Amazon-held inventory also fulfill DTC
+orders), which simplifies inventory planning but ties DTC fulfillment
+reliability to that marketplace's own operational performance.
+
+Cross-border tax compliance exists on top of all of this and does not
+go away just because a marketplace handles the transaction. VAT
+(Value-Added Tax, used across the EU and UK) generally must be collected
+and remitted based on where the end customer is located, not where the
+seller or warehouse is based; many marketplaces now collect and remit VAT
+automatically on behalf of third-party sellers for consumer sales under
+certain thresholds, but the seller remains responsible for registering
+for a VAT number in any country where it holds inventory in a local
+fulfillment center, since storing goods there typically creates a taxable
+presence regardless of where sales happen. In the US, state sales tax
+follows a similar split: most marketplaces now collect and remit sales
+tax on marketplace transactions directly (marketplace facilitator laws),
+but a seller with its own DTC store is usually responsible for its own
+state-by-state sales tax registration and remittance wherever it has
+nexus (a physical or economic presence over a state's threshold).
+
+The common failure mode across channels is treating tax and compliance
+as a one-time setup rather than something that changes whenever inventory
+placement, channel mix, or sales volume changes -- storing inventory in a
+new country's fulfillment center, or crossing an economic nexus threshold
+in a new US state, can create a new filing obligation that nobody
+notices until a mismatch surfaces in an audit.
