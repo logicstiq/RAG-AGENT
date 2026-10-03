@@ -325,17 +325,30 @@ def _detect_aggregation(question: str, df: pd.DataFrame) -> dict | None:
     }
 
 
-def _format_aggregate(df: pd.DataFrame, agg: dict, notes: list[str]) -> str:
+def _format_aggregate(df: pd.DataFrame, agg: dict, notes: list[str]) -> tuple[str, dict | None]:
+    """Returns (text, chart_spec). chart_spec is None for a single number —
+    there's nothing to chart — and a plain dict of labels/values/title when
+    the aggregation is grouped, for the caller to render as a bar chart.
+    The text is always complete on its own; the chart is an addition, not
+    a replacement — offline mode and any caller that ignores chart_spec
+    still gets the full, correct answer.
+    """
     func, target, group = agg["func"], agg["target"], agg["group"]
     prefix = f"(filtered on {', '.join(notes)})\n" if notes else ""
     numeric = _to_numeric(df[target])
 
     if group:
         grouped = numeric.groupby(df[group]).agg(func)
-        return prefix + f"{func}({target}) by {group}:\n" + grouped.to_string()
+        text = prefix + f"{func}({target}) by {group}:\n" + grouped.to_string()
+        chart_spec = {
+            "labels": [str(x) for x in grouped.index.tolist()],
+            "values": [float(v) for v in grouped.values.tolist()],
+            "title": f"{func}({target}) by {group}",
+        }
+        return text, chart_spec
 
     value = numeric.agg(func)
-    return prefix + f"{func}({target}) = {value}"
+    return prefix + f"{func}({target}) = {value}", None
 
 
 def answer_structured_query(question: str, tables: dict[str, pd.DataFrame]) -> dict:
@@ -360,7 +373,12 @@ def answer_structured_query(question: str, tables: dict[str, pd.DataFrame]) -> d
         # most specific thing a question can do.
         hit = _exact_value_lookup(question, df)
         if hit is not None and not hit.empty:
-            return {"matched": True, "table_name": table_name, "text": _format_rows(hit, is_count)}
+            return {
+                "matched": True,
+                "table_name": table_name,
+                "text": _format_rows(hit, is_count),
+                "chart": None,
+            }
 
         columns = list(df.columns)
         agg = _detect_aggregation(question, df)
@@ -377,10 +395,12 @@ def answer_structured_query(question: str, tables: dict[str, pd.DataFrame]) -> d
         if agg and agg["target"]:
             base_df = df[mask] if filter_ok else df
             score = agg["score"] + (filter_score if filter_ok else 0)
+            text, chart_spec = _format_aggregate(base_df, agg, notes if filter_ok else [])
             candidate = {
                 "score": score,
                 "table_name": table_name,
-                "text": _format_aggregate(base_df, agg, notes if filter_ok else []),
+                "text": text,
+                "chart": chart_spec,
             }
             if best is None or score > best["score"]:
                 best = candidate
@@ -400,8 +420,13 @@ def answer_structured_query(question: str, tables: dict[str, pd.DataFrame]) -> d
                 best = candidate
 
     if best is not None:
-        return {"matched": True, "table_name": best["table_name"], "text": best["text"]}
-    return {"matched": False, "table_name": None, "text": ""}
+        return {
+            "matched": True,
+            "table_name": best["table_name"],
+            "text": best["text"],
+            "chart": best.get("chart"),
+        }
+    return {"matched": False, "table_name": None, "text": "", "chart": None}
 
 
 def _format_rows(df: pd.DataFrame, is_count: bool, note: str = "") -> str:

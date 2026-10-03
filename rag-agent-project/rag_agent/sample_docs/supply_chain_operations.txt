@@ -1,0 +1,51 @@
+Supply Chain Operations: Demand Planning Through Reverse Logistics
+
+The operational supply chain behind an e-commerce brand runs through five
+connected stages, and a failure at any stage shows up as a symptom at a
+later one, which is why root-cause analysis in this business usually means
+tracing a visible problem (a stockout, excess inventory) backward through
+the chain rather than treating it as isolated.
+
+Demand planning forecasts future sales using historical velocity,
+seasonality, and planned promotions, and produces the single number
+(forecasted demand) that every downstream decision depends on. Forecast
+error compounds: an under-forecast leads to stockouts and lost Buy Box
+share that takes weeks to recover even after inventory arrives; an
+over-forecast leads to excess inventory, long-term storage fees, and
+eventual markdown or liquidation.
+
+Procurement translates the forecast into actual purchase orders, factoring
+in supplier lead time, minimum order quantities, and payment terms.
+Reorder point and safety stock calculations live here: the reorder point
+determines WHEN to place an order, and safety stock determines how large a
+buffer protects against demand or lead-time variability. A supplier with a
+long or inconsistent lead time (common with overseas manufacturing) pushes
+every other stage's buffers higher, which ties up working capital.
+
+Inbound logistics moves purchased goods from the supplier to a
+fulfillment center or warehouse, and this is where Incoterms (FOB, DDP,
+EXW) determine who is responsible for freight, insurance, and customs at
+each leg. Inbound shipment planning for Amazon FBA specifically requires
+matching shipment plans to fulfillment center assignments, which Amazon
+controls and which can split one shipment across multiple FCs,
+complicating lead-time tracking.
+
+Warehousing and fulfillment cover storage, pick/pack, and the actual
+shipment to the end customer -- for FBA sellers this is largely outsourced
+to Amazon, but 1P vendor and DTC channels often require the brand (or its
+3PL) to manage this directly, with different cost structures and SLAs.
+
+Reverse logistics handles returns, which in some categories (apparel
+especially) can exceed 20-30% of units shipped. A returned unit's
+condition determines whether it goes back into sellable inventory,
+requires inspection/repackaging, or gets liquidated -- and reverse
+logistics cost is frequently underestimated in margin planning because it
+is tracked separately from the original fulfillment cost rather than
+netted against the sale.
+
+The common thread across all five stages is that supply chain performance
+is measured in lagging indicators (in-stock rate, IPI score, days of
+supply) that reflect decisions made weeks or months earlier, which is why
+mature operations track leading indicators -- forecast accuracy, supplier
+lead-time variance, PO on-time rate -- rather than waiting for a stockout
+to reveal a planning problem.

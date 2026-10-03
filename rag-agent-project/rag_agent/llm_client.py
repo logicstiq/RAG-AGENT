@@ -41,7 +41,7 @@ def _offline_answer(query: str, passages: list[dict]) -> str:
         "instead of a generated answer. Set OPENAI_API_KEY, ANTHROPIC_API_KEY, or "
         "GEMINI_API_KEY to get a written answer.)\n"
     ]
-    for p in passages[:3]:
+    for p in passages[:4]:
         snippet = p["text"][:400].strip()
         lines.append(f"From [{p['source']}] (score {p['score']:.2f}):\n{snippet}\n")
     return "\n".join(lines)

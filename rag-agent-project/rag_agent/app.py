@@ -12,7 +12,8 @@ from werkzeug.utils import secure_filename
 from agent import RAGAgent
 
 UPLOAD_DIR = os.path.join(os.path.dirname(__file__), "data", "uploads")
-ALLOWED_EXTENSIONS = (".csv", ".xlsx", ".xls")
+DATA_EXTENSIONS = (".csv", ".xlsx", ".xls")
+DOC_EXTENSIONS = (".txt", ".md", ".pdf", ".docx")
 
 app = Flask(__name__)
 agent = RAGAgent()
@@ -40,6 +41,7 @@ def ask():
         {
             "answer": result["answer"],
             "sources": result["sources"],
+            "chart": result.get("chart"),
         }
     )
 
@@ -63,7 +65,7 @@ def upload_data():
         return jsonify({"error": "No file selected"}), 400
 
     filename = secure_filename(file.filename)
-    if not filename.lower().endswith(ALLOWED_EXTENSIONS):
+    if not filename.lower().endswith(DATA_EXTENSIONS):
         return jsonify({"error": "Only .csv and .xlsx/.xls files are supported"}), 400
 
     os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -93,6 +95,35 @@ def upload_data():
         for name in added_tables
     ]
     return jsonify({"tables": tables_summary})
+
+
+@app.route("/api/upload-docs", methods=["POST"])
+def upload_docs():
+    """Lets someone drop a new .txt/.md/.pdf/.docx straight into the live
+    chat. Unlike the spreadsheet upload above, this ADDS to the existing
+    text corpus rather than replacing it — a new policy doc or report is
+    normally meant to supplement a knowledge base, not wipe it out, and
+    there's no "wrong table" collision risk the way there is with
+    spreadsheets (a text question can legitimately draw on several
+    documents at once; that's the whole point of the graph-linking)."""
+    file = request.files.get("file")
+    if not file or not file.filename:
+        return jsonify({"error": "No file selected"}), 400
+
+    filename = secure_filename(file.filename)
+    if not filename.lower().endswith(DOC_EXTENSIONS):
+        return jsonify({"error": "Only .txt, .md, .pdf, and .docx files are supported"}), 400
+
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    path = os.path.join(UPLOAD_DIR, filename)
+    file.save(path)
+
+    try:
+        n_chunks = agent.ingest_additional_doc(path)
+    except Exception as e:
+        return jsonify({"error": f"Could not read that file: {e}"}), 400
+
+    return jsonify({"filename": filename, "chunks": n_chunks})
 
 
 if __name__ == "__main__":

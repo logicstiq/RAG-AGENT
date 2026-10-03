@@ -9,16 +9,23 @@
 <body>
   <main>
     <h1>Graph-Lite RAG Agent</h1>
-    <p class="subtitle">Ask a question, or drop in a new CSV/XLSX to query it directly.</p>
+    <p class="subtitle">Ask a question, or drop in a new file to query it directly.</p>
 
     <div class="upload-row">
-      <label class="upload-btn" for="file-input">
+      <label class="upload-btn" for="data-input">
         <span>+ Upload CSV/XLSX</span>
-        <input id="file-input" type="file" accept=".csv,.xlsx,.xls" hidden />
+        <input id="data-input" type="file" accept=".csv,.xlsx,.xls" hidden />
+      </label>
+      <label class="upload-btn" for="doc-input">
+        <span>+ Upload PDF/DOCX/TXT</span>
+        <input id="doc-input" type="file" accept=".txt,.md,.pdf,.docx" hidden />
       </label>
       <span id="upload-status"></span>
     </div>
-    <p class="upload-note">Uploading a file replaces any previously loaded spreadsheet — questions will answer from the new file only.</p>
+    <p class="upload-note">
+      A spreadsheet upload replaces any previously loaded data (questions answer from the new file only).
+      A document upload adds to the existing knowledge base alongside what's already there.
+    </p>
 
     <div id="log"></div>
 
@@ -32,13 +39,20 @@
     const form = document.getElementById("chat-form");
     const input = document.getElementById("question");
     const log = document.getElementById("log");
-    const fileInput = document.getElementById("file-input");
+    const dataInput = document.getElementById("data-input");
+    const docInput = document.getElementById("doc-input");
     const uploadStatus = document.getElementById("upload-status");
 
-    function addEntry(role, text) {
+    function addEntry(role, text, chartDataUri) {
       const div = document.createElement("div");
       div.className = "entry " + role;
       div.textContent = text;
+      if (chartDataUri) {
+        const img = document.createElement("img");
+        img.src = chartDataUri;
+        img.className = "chart-image";
+        div.appendChild(img);
+      }
       log.appendChild(div);
       log.scrollTop = log.scrollHeight;
       return div;
@@ -68,28 +82,32 @@
       if (data.sources && data.sources.length) {
         text += "\n\nSources: " + data.sources.join(", ");
       }
-      addEntry("agent", text);
+      addEntry("agent", text, data.chart);
     });
 
-    fileInput.addEventListener("change", async () => {
-      const file = fileInput.files[0];
-      if (!file) return;
-
+    async function uploadFile(file, endpoint, onSuccess) {
       uploadStatus.textContent = "Uploading " + file.name + "...";
       const formData = new FormData();
       formData.append("file", file);
-
       try {
-        const res = await fetch("/api/upload-data", { method: "POST", body: formData });
+        const res = await fetch(endpoint, { method: "POST", body: formData });
         const data = await res.json();
-
+        uploadStatus.textContent = "";
         if (data.error) {
-          uploadStatus.textContent = "";
           addEntry("agent", "Couldn't load " + file.name + ": " + data.error);
           return;
         }
-
+        onSuccess(data);
+      } catch (err) {
         uploadStatus.textContent = "";
+        addEntry("agent", "Upload failed: " + err);
+      }
+    }
+
+    dataInput.addEventListener("change", () => {
+      const file = dataInput.files[0];
+      if (!file) return;
+      uploadFile(file, "/api/upload-data", (data) => {
         for (const t of data.tables) {
           addEntry(
             "agent",
@@ -97,12 +115,21 @@
             "\n\nYou can ask about this data now."
           );
         }
-      } catch (err) {
-        uploadStatus.textContent = "";
-        addEntry("agent", "Upload failed: " + err);
-      } finally {
-        fileInput.value = "";
-      }
+      });
+      dataInput.value = "";
+    });
+
+    docInput.addEventListener("change", () => {
+      const file = docInput.files[0];
+      if (!file) return;
+      uploadFile(file, "/api/upload-docs", (data) => {
+        addEntry(
+          "agent",
+          "Added " + data.filename + " (" + data.chunks + " chunk" + (data.chunks === 1 ? "" : "s") +
+          ") to the knowledge base.\n\nYou can ask about it now."
+        );
+      });
+      docInput.value = "";
     });
   </script>
 </body>

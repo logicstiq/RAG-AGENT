@@ -1,0 +1,45 @@
+How Catalog Decisions Drive Supply Chain Outcomes
+
+Catalog management and supply chain operations are usually staffed and
+measured as separate functions, but a large share of real inventory
+problems originate on the catalog side and only become visible as a
+supply chain metric days or weeks later. Understanding this link is what
+separates reactive firefighting from actually fixing root causes.
+
+A suppressed or stranded listing (a catalog defect) stops a SKU from
+selling even though physical stock is sitting in a fulfillment center.
+Demand planning systems reading recent sales velocity will see that
+velocity drop to zero and, if not corrected for the known catalog issue,
+will forecast future demand downward and shrink the reorder point --
+compounding a content problem into an inventory-planning problem that
+persists even after the listing is fixed, because the forecast baseline
+is now artificially low.
+
+A poorly optimized listing (weak content, incomplete backend keywords,
+missing A+ content) converts and ranks worse than it should, which
+understates true demand. When that SKU is later relisted or its content
+is improved, the resulting demand spike frequently outpaces a reorder
+point that was calculated against the old, suppressed velocity --
+producing a stockout that looks like a supply chain forecasting failure
+but actually originated from a catalog content decision made weeks
+earlier.
+
+Variation and parent-child mapping errors can silently split inventory
+signal across ASINs that should be one listing, making each individual
+ASIN's demand history look thinner and more erratic than the true,
+combined demand -- which degrades forecast accuracy for every variant in
+that family, not just the misconfigured one.
+
+Category and browse node changes (sometimes made to chase better search
+placement) can alter which fulfillment network and storage fee tier a
+SKU falls under, occasionally changing landed cost assumptions in ways
+that are easy to miss if the catalog team and the financial/supply chain
+team aren't reviewing the same change together.
+
+The practical implication for anyone running both functions, or managing
+people who do, is that a sales velocity drop should always be checked
+against listing status before any inventory action is taken: resuming a
+PO or raising a reorder point in response to a demand dip caused by a
+stranded listing fixes nothing, while a forecast correction made before
+fixing the underlying catalog problem can overcorrect in the wrong
+direction once the listing issue is resolved and real demand returns.

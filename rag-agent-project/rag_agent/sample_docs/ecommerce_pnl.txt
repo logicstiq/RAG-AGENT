@@ -1,0 +1,43 @@
+P&L Economics for a Managed E-commerce Brand
+
+A brand's e-commerce P&L has more line items than a simple
+revenue-minus-cost view, and most of the "where did the margin go"
+confusion in this business comes from one or two of these lines being
+tracked inconsistently or omitted entirely from a quick analysis.
+
+Starting from the top: Gross Revenue is total sales before any
+deductions. Net Revenue subtracts returns and promotional discounts.
+From Net Revenue, Cost of Goods Sold (COGS) -- unit cost, inbound
+freight, duties if imported -- is subtracted to get Gross Profit.
+
+Below gross profit, marketplace-specific costs apply: the referral fee
+(Amazon's cut, category-dependent, commonly 8-17% of the sale price),
+FBA fulfillment fees (pick/pack plus weight-based shipping, which scale
+with dimensional weight, not just actual weight), and storage fees
+(monthly, with a steep multiplier during Q4 peak season and additional
+long-term storage surcharges for slow-moving inventory sitting beyond
+roughly six months). Advertising spend (Sponsored Products, Sponsored
+Brands, DSP) is usually tracked as a percentage of sales, called ACoS
+(Advertising Cost of Sale) at the campaign level or TACoS (Total
+Advertising Cost of Sale, including organic sales in the denominator) at
+the account level.
+
+Contribution Margin is what remains after COGS, marketplace fees, and
+advertising -- this is the number that actually reflects whether a SKU
+is profitable to keep selling, and it is the figure most relevant to
+reorder and discontinuation decisions, as distinct from Gross Margin,
+which ignores advertising and fulfillment entirely and can make a losing
+SKU look healthy.
+
+Below contribution margin, the management company's own fee (the
+revenue-share or retainer from the brand contract) is subtracted to
+reach the brand's Net Profit for that channel. If the management company
+itself is reporting on its own P&L for the engagement, its revenue is
+that same management fee, and its own costs are labor, software
+tooling, and any ad spend it fronts before billing back to the brand.
+
+The most common analytical mistake in this P&L is evaluating SKU
+profitability on Gross Margin alone: a SKU with a 60% gross margin can
+still be a net loser once a 15% referral fee, FBA fees, and a 25% ACoS
+are layered in, which is why contribution margin, not gross margin, is
+the number that should drive reorder, pricing, and delisting decisions.

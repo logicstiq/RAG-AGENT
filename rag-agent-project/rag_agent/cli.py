@@ -25,7 +25,7 @@ def main():
 
     ask_p = sub.add_parser("ask", help="Ask a single question against whatever is ingested")
     ask_p.add_argument("question")
-    ask_p.add_argument("--top-k", type=int, default=4)
+    ask_p.add_argument("--top-k", type=int, default=6)
 
     sub.add_parser("chat", help="Interactive question loop")
 

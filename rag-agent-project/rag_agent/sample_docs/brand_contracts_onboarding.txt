@@ -1,0 +1,105 @@
+Brand Contracts and Onboarding
+
+When a brand management company takes on a new brand, the engagement
+starts with a contract that defines scope, commercial terms, and
+operational boundaries, and the quality of onboarding execution afterward
+determines how quickly that brand becomes profitable to manage.
+
+Contract structures vary, but the most common commercial models are:
+a percentage-of-revenue fee (the management company takes a cut, often
+10-25%, of net sales across the channels it manages); a hybrid model
+combining a smaller revenue percentage with a flat monthly retainer
+covering advertising management, content, and operations; or, less
+commonly, a wholesale/distributor model where the management company
+actually buys inventory from the brand and resells it, taking on
+inventory risk directly in exchange for a larger margin capture. Contracts
+typically specify which channels are in scope (Amazon 1P, 3P, Walmart,
+TikTok Shop, DTC), minimum term length, termination notice period, and
+IP/content ownership (who owns photography, copy, and A+ content created
+during the engagement after the contract ends).
+
+Before a contract is even drafted, a new brand or market opportunity
+typically goes through a staged evaluation: an initial fit/scorecard
+assessment (does this brand's category, price point, and current
+performance make sense for the partnership at all), a financial model
+(what commercial terms would make the engagement worthwhile for both
+sides, given the brand's margin structure and volume), a negotiation
+pass to pulse-check the brand's comfort with those terms, a feasibility
+study (a concrete plan for how the management company would actually
+grow the business in the target channel or market), and only then the
+legal contract itself. Skipping the feasibility study to move faster is a
+common mistake, because it means the first real growth plan gets built
+*after* the commercial terms are already locked in, rather than informing
+them.
+
+Onboarding a new brand typically follows a staged sequence, often spanning
+two to three months end to end for a new marketplace or region:
+
+1. Intake and brand setup (roughly the first two weeks): collecting the
+   initial SKU/product list from the brand, confirming which products
+   will actually launch (a full catalog or a curated top-seller subset),
+   and running compliance review in parallel -- regulatory requirements
+   vary sharply by destination market, so this step cannot be skipped
+   even under timeline pressure. A supplements or VMS (vitamins, minerals
+   and supplements) brand expanding into a new country, for example, may
+   need country-specific product registration (e.g. a government
+   ingredient/safety approval) before a listing can go live at all, and
+   that approval alone can take anywhere from 60 days to 6 months --
+   meaning compliance timeline, not catalog work, is often the true
+   critical path for a new-market launch. Packaging and labeling
+   requirements also vary by destination (bilingual labeling, specific
+   mandatory disclosures) and need to be checked against the new market's
+   rules before products ship, not after.
+
+2. Data preparation across systems (another one to two weeks): registering
+   products in the content/PIM system, translating and localizing
+   attributes and listing content for the destination market, selecting
+   the correct category, and syndicating that data out to the marketplace
+   itself, followed by a verification pass confirming the live listing
+   actually matches what was submitted. A decision made here with lasting
+   consequences: whether to reuse an existing ASIN/product ID across
+   regions or create a new one per market. Reusing one lets a new
+   market's listing inherit existing reviews, but it also means a
+   suppression or policy issue in one market can take down the listing
+   everywhere it's used -- new, market-specific IDs are generally the
+   safer default despite losing that review history.
+
+3. Inventory planning and inbound flow (commonly the longest phase, one to
+   two months): handing off to demand planning with the historical
+   velocity or launch-volume assumptions the plan needs, generating and
+   confirming the purchase order, managing the brand's inbound shipment to
+   a receiving warehouse, and then the outbound leg to wherever the
+   marketplace's own fulfillment network requires the stock to physically
+   sit -- which, for a cross-border or new-region launch, can itself take
+   several weeks and is frequently the actual bottleneck between a
+   finished listing and a sellable one.
+
+4. Pricing architecture: setting an initial price (often deliberately
+   high relative to competitors at first), then a defined cadence for
+   testing price reductions against conversion and margin targets, with
+   guardrails on how far price can move before requiring approval.
+
+5. Ongoing communications and reporting cadence: a regular (commonly
+   weekly or biweekly) reporting rhythm to the brand covering price tests,
+   promotions, stockout risk, and advertising performance, plus a
+   separate, often more frequent internal cadence among the operating
+   team -- and a defined escalation playbook for the issues that come up
+   repeatedly: listing suppression, IP or counterfeit complaints,
+   unauthorized third-party sellers undercutting price, and inventory or
+   logistics exceptions, each with its own typical root causes and a
+   known internal and external escalation path rather than an ad hoc one
+   worked out after the fact.
+
+The most common onboarding failure mode is treating it as purely an
+account-access handoff rather than a diagnostic and compliance process:
+skipping the catalog and inventory audit, or underestimating how long
+destination-market compliance actually takes, means problems that existed
+before the engagement (stranded ASINs, an already-damaged IPI score, a
+regulatory approval nobody budgeted time for) get misattributed to the new
+management team's performance in the window new engagements are judged on.
+
+Renewal and expansion conversations go more smoothly when the original
+contract's success metrics were specific and were tracked consistently
+from day one -- revenue growth, TACoS (total advertising cost of sale),
+IPI score, and in-stock rate are the four metrics most commonly cited in
+both onboarding plans and renewal reviews.

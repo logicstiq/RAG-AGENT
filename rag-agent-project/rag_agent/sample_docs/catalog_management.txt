@@ -1,0 +1,42 @@
+Catalog and Listing Management
+
+Catalog management is the operational discipline of creating, maintaining,
+and optimizing product listings across marketplaces, and it sits upstream
+of almost every other metric in e-commerce operations: a catalog problem
+today becomes a supply chain or revenue problem within days.
+
+The ASIN lifecycle starts with listing creation: mapping a SKU to a new or
+existing ASIN, submitting title/bullets/description/images/backend search
+terms, and setting the correct category, browse node, and item
+specifics. A flat file (a structured spreadsheet template Amazon provides
+per category) is the most common bulk-upload mechanism for creating or
+updating hundreds of listings at once; errors in a flat file (wrong
+category ID, missing required attribute, encoding issues) are one of the
+most common causes of listing suppression.
+
+Listing quality directly affects three things sellers care about most:
+conversion rate, organic search ranking, and Buy Box eligibility. Content
+quality (image count and resolution, A+ content / Enhanced Brand Content,
+bullet completeness, backend keyword coverage) feeds Amazon's relevance and
+quality scoring, which affects both organic placement and advertising
+efficiency, since a weak listing converts worse even when it ranks well.
+
+Stranded inventory is a catalog problem, not a supply chain one, even
+though it looks like an inventory issue on the surface: it means units are
+physically in a fulfillment center but not appearing as purchasable,
+almost always because of a suppressed listing, a missing required
+attribute, or a category/compliance flag. The fix lives in Seller
+Central's listing quality dashboard, not in a purchase order adjustment.
+
+Variation management (parent-child relationships for size/color/pack-count
+variants) is a frequent source of catalog defects: an incorrectly mapped
+child ASIN can inherit the wrong parent's reviews and ranking, or split
+review counts across what should be one listing, measurably hurting
+conversion. Brand Registry access is usually required to fix variation
+issues on an existing listing without opening a support case.
+
+Catalog governance at scale (hundreds of brands, tens of thousands of
+SKUs) requires a change-control process: who can edit live listings,
+how flat file changes are validated before submission, and how content
+updates are tracked back to a request, so that a conversion drop can be
+traced to a specific change rather than investigated from scratch.

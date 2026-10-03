@@ -36,6 +36,31 @@ CASES = [
         "check": lambda r: "No matching passages" in r["answer"],
         "description": "text RAG honestly reports no match instead of guessing",
     },
+    # --- e-commerce business-model docs: commercial side, catalog, PnL,
+    # contracts, and the cross-document links between them ---
+    {
+        "question": "Explain the 3P model",
+        "check": lambda r: "ecommerce_business_models.txt" in r["sources"],
+        "description": "retrieves the 3P/1P/DTC explainer even though a less-relevant "
+        "chunk elsewhere uses the generic word 'model' more densely (a real TF-IDF "
+        "ranking quirk — this checks the right doc is still SURFACED, not ranked #1)",
+    },
+    {
+        "question": "What causes stranded inventory and how does it affect forecasting?",
+        "check": lambda r: "catalog_management.txt" in r["sources"]
+        and "catalog_supply_chain_connection.txt" in r["sources"],
+        "description": "graph-links the catalog root cause with the forecasting consequence across two files",
+    },
+    {
+        "question": "What is contribution margin?",
+        "check": lambda r: "ecommerce_pnl.txt" in r["sources"],
+        "description": "retrieves the P&L document for a margin/economics question",
+    },
+    {
+        "question": "What happens during brand onboarding?",
+        "check": lambda r: "brand_contracts_onboarding.txt" in r["sources"],
+        "description": "retrieves the onboarding process document",
+    },
     # --- structured: exact lookup ---
     {
         "question": "Tell me about WPB-1004",
@@ -196,11 +221,76 @@ def run_upload_case() -> tuple[int, int]:
     return int(upload_ok) + int(replace_ok), 2
 
 
+def run_docx_and_chart_cases() -> tuple[int, int]:
+    """Covers two features added together: live .docx upload (additive,
+    not replacing — the opposite behavior from the spreadsheet upload on
+    purpose, see app.py's upload_docs docstring) and chart generation for
+    grouped aggregations.
+    """
+    import docx
+
+    import app as app_module
+
+    client = app_module.app.test_client()
+    passed = 0
+
+    doc = docx.Document()
+    doc.add_paragraph("Eval Return Policy")
+    doc.add_paragraph("Returns must be initiated within 30 days of delivery for a full refund.")
+    docx_path = os.path.join(tempfile.gettempdir(), "eval_test_policy.docx")
+    doc.save(docx_path)
+
+    with open(docx_path, "rb") as f:
+        resp = client.post(
+            "/api/upload-docs",
+            data={"file": (f, "eval_test_policy.docx")},
+            content_type="multipart/form-data",
+        )
+    upload_ok = resp.status_code == 200 and resp.get_json().get("filename") == "eval_test_policy.docx"
+    print(f"[{'PASS' if upload_ok else 'FAIL'}] live .docx upload is read and ingested")
+    passed += upload_ok
+
+    resp = client.post("/api/ask", json={"question": "What is the return window for a full refund?"})
+    answer_data = resp.get_json()
+    docx_answer_ok = "eval_test_policy.docx" in answer_data.get("sources", []) and "30 days" in answer_data.get(
+        "answer", ""
+    )
+    print(f"[{'PASS' if docx_answer_ok else 'FAIL'}] uploaded .docx content is actually retrievable")
+    passed += docx_answer_ok
+
+    resp = client.post("/api/ask", json={"question": "What is safety stock?"})
+    additive_ok = "safety_stock.txt" in resp.get_json().get("sources", [])
+    print(
+        f"[{'PASS' if additive_ok else 'FAIL'}] document upload is additive — existing "
+        "text corpus still answers (the opposite of the spreadsheet upload's replace behavior, on purpose)"
+    )
+    passed += additive_ok
+
+    resp = client.post("/api/ask", json={"question": "What is the total quantity by FC"})
+    chart_data = resp.get_json()
+    chart_ok = bool(chart_data.get("chart")) and chart_data["chart"].startswith("data:image/png;base64,")
+    print(f"[{'PASS' if chart_ok else 'FAIL'}] grouped aggregation returns an actual chart image, not just text")
+    passed += chart_ok
+
+    resp = client.post("/api/ask", json={"question": "What is the total quantity"})
+    no_chart_data = resp.get_json()
+    no_chart_ok = no_chart_data.get("chart") is None
+    print(
+        f"[{'PASS' if no_chart_ok else 'FAIL'}] a single (non-grouped) number correctly has no chart — "
+        "nothing to plot"
+    )
+    passed += no_chart_ok
+
+    return passed, 5
+
+
 def main():
     core_passed, core_total = run_core_cases()
     upload_passed, upload_total = run_upload_case()
+    docx_passed, docx_total = run_docx_and_chart_cases()
 
-    passed, total = core_passed + upload_passed, core_total + upload_total
+    passed = core_passed + upload_passed + docx_passed
+    total = core_total + upload_total + docx_total
     print(f"\n{passed}/{total} passed")
 
 

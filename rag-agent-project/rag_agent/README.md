@@ -96,18 +96,36 @@ python app.py          # then open http://localhost:5000
 
 ## Live file upload (no terminal needed)
 
-The web UI has a "+ Upload CSV/XLSX" control — drop in a new spreadsheet
-and start asking about it immediately, without touching the CLI or
-redeploying. This is what makes "here's a real file, try it live" possible
-in an interview with just a browser window.
+The web UI has two upload controls — no CLI, no redeploy, either one:
 
-Uploading a file **replaces** any previously loaded spreadsheet (text docs
-in `sample_docs` are untouched either way). That's deliberate: once someone
-hands you a real file, every question should answer from that file, not
-get silently picked up by leftover demo data with a similarly-named column.
-If you want the original sample data back, re-run `ingest-data --files
-sample_data` from the CLI, or just restart the app (if you ingested via CLI
-beforehand, that index is still on disk).
+- **"+ Upload CSV/XLSX"** — a spreadsheet. This **replaces** any previously
+  loaded spreadsheet (text docs in `sample_docs` are untouched either way).
+  That's deliberate: once someone hands you a real data file, every
+  question should answer from that file, not get silently picked up by
+  leftover demo data with a similarly-named column. If you want the
+  original sample data back, re-run `ingest-data --files sample_data` from
+  the CLI, or restart the app if you ingested via CLI beforehand (that
+  index is still on disk).
+- **"+ Upload PDF/DOCX/TXT"** — a text document. This **adds** to the
+  existing text corpus rather than replacing it — a new policy doc or
+  report is meant to supplement a knowledge base, not wipe it out, and
+  (unlike spreadsheets) there's no "wrong table" collision risk: a text
+  question can legitimately draw on several documents at once, which is
+  the whole point of the graph-linking. Under the hood, TF-IDF has to be
+  refit on the whole corpus to add a document — there's no clean way to
+  add one file to an already-fitted vectorizer — so this reconstructs
+  every existing chunk from the vector store's own metadata, adds the new
+  file's chunks, and rebuilds. Fine at this corpus size; a much larger
+  one would need a different approach.
+
+## Charts for grouped data
+
+Any grouped aggregation ("average X by Y") returns an actual bar chart
+(a base64 PNG, rendered server-side with matplotlib) alongside the exact
+numbers — not instead of them. A plain, non-grouped number ("total X")
+correctly returns no chart, since there's nothing to plot. The chart is
+additive: offline mode, the CLI, and any caller that ignores it still get
+the complete, correct text answer either way.
 
 ## Project layout
 
@@ -125,7 +143,11 @@ rag_agent/
 ├── cli.py               # terminal interface
 ├── app.py               # minimal Flask chat UI
 ├── eval.py              # 14 verified question/answer pairs — run after any change
-├── sample_docs/         # a few supply-chain/e-commerce ops notes, for the demo
+├── sample_docs/         # 8 e-commerce business documents: 1P/3P/DTC models,
+│                        #   catalog management, brand contracts & onboarding,
+│                        #   P&L economics, supply chain ops end-to-end, and a
+│                        #   document explicitly linking catalog decisions to
+│                        #   supply chain outcomes (see below)
 ├── sample_data/         # two demo tables: a tiny CSV + a 90-row synthetic
 │                        #   FBA export (27 columns, real export structure,
 │                        #   fully invented SKUs/ASINs/numbers — see below)
@@ -143,6 +165,53 @@ A natural next step for this as a portfolio piece: point `ingest-docs` at
 your Pattern SOPs or the supply-chain glossary from your mastery roadmap,
 and `ingest-data` at a real (sanitized) inventory or order export, then
 demo both kinds of question side by side.
+
+## What the text corpus actually covers
+
+Beyond the original three files, `sample_docs/` now covers the commercial
+side through to the operational side of running an e-commerce brand:
+
+- **`ecommerce_business_models.txt`** — 1P (Vendor Central), 3P (Seller
+  Central/marketplace), and DTC, with the margin and control trade-offs of each
+- **`catalog_management.txt`** — the ASIN lifecycle, flat files, content
+  quality's effect on conversion/ranking, variation mapping, stranded inventory
+- **`brand_contracts_onboarding.txt`** — commission/retainer/wholesale
+  contract structures, a 5-stage onboarding sequence (intake → data/PIM
+  setup → inventory/PO handoff → pricing → reporting/escalation) with real
+  timelines (2-3 months end to end, compliance approval as the actual
+  critical path for new-market launches), and why skipping the audit step
+  causes new engagements to inherit blame for pre-existing problems. The
+  process structure here was informed by a real internal onboarding
+  playbook — generic staging and timelines only, no Pattern-specific
+  commercial terms or tool names
+- **`ecommerce_pnl.txt`** — the full P&L waterfall (gross revenue → COGS →
+  marketplace fees → ad spend → contribution margin → management fee), and
+  why contribution margin, not gross margin, should drive SKU decisions
+- **`supply_chain_operations.txt`** — demand planning → procurement →
+  inbound logistics → warehousing/fulfillment → reverse logistics, as one
+  connected chain where failures surface downstream, not where they started
+- **`catalog_supply_chain_connection.txt`** — written specifically to
+  connect the commercial/catalog documents to the supply chain documents:
+  how a stranded listing quietly corrupts a demand forecast, how variation
+  errors split demand signal, why a velocity drop should be checked against
+  listing status before any inventory action
+
+This is real, substantive domain content (not filler), and it's the reason
+the graph-linking feature actually has something to demonstrate: ask "what
+causes stranded inventory and how does it affect forecasting" and the
+agent pulls `catalog_management.txt` (the root cause) and
+`catalog_supply_chain_connection.txt` (the downstream consequence) together
+in one answer — two different files, connected because they share
+meaningful terms, not because anyone pre-linked them by hand.
+
+One honest limitation surfaced while testing this: TF-IDF ranks by literal
+term overlap, so a question like "explain the 3P model" can occasionally
+rank a tangentially-related chunk above the actual explainer, if that
+chunk happens to repeat a generic word (here, "model") more densely than
+the relevant chunk repeats the specific term ("3P"). The correct content
+still surfaces — it's in the sources, just not always ranked first — and
+this is exactly the kind of gap a neural embedding model would close if
+retrieval quality needs to go further (see "Notes on scope" below).
 
 ## Why there's a second, bigger demo table
 

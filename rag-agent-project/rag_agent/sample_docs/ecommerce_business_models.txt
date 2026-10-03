@@ -1,0 +1,43 @@
+E-commerce Business Models: 1P, 3P, and DTC
+
+Most brands selling on Amazon and other marketplaces operate through one or
+more of three distinct commercial models, and the choice has downstream
+consequences for pricing control, cash flow, inventory ownership, and who
+actually manages the catalog.
+
+1P (First Party / Vendor Central): The brand sells inventory wholesale
+directly to the retailer (Amazon Retail), which then owns the inventory,
+sets the retail price, and controls the buy box. The brand gets a purchase
+order and gets paid on vendor terms, typically net-30 to net-90, often with
+chargebacks for compliance issues (late shipments, mislabeled cartons,
+missing ASNs). Margins are usually tighter here because the retailer takes
+the retail margin, but demand is more predictable since it is driven by PO
+volume rather than real-time consumer behavior.
+
+3P (Third Party / Seller Central / Marketplace): The brand (or its
+authorized seller) lists and sells directly to the end consumer through the
+marketplace, retaining ownership of inventory until the sale, setting its
+own price, and controlling its own content and promotions. Amazon takes a
+referral fee (category-dependent, commonly 8-17%) plus fulfillment fees if
+using FBA. This model gives the brand far more control over brand
+presentation, pricing, and promotional cadence, but also full responsibility
+for demand forecasting, inventory risk, and account health metrics like
+Order Defect Rate and Inventory Performance Index.
+
+DTC (Direct-to-Consumer): The brand sells through its own site (commonly
+Shopify, WooCommerce, or a custom storefront), owning the full customer
+relationship, the data, and the margin, but also bearing full responsibility
+for driving traffic, conversion, fulfillment, and customer service. DTC
+margins are structurally the highest of the three models because there is no
+marketplace referral fee, but customer acquisition cost (CAC) replaces that
+fee as the dominant cost line, and fulfillment economics are usually worse
+at low volume than they are for an Amazon-fulfilled 3P listing.
+
+Most brands with any meaningful scale run a hybrid: 1P for baseline
+wholesale volume and retail distribution, 3P for marketplace growth and
+promotional flexibility, and DTC for margin, brand control, and first-party
+customer data. A brand management company's core value proposition is
+usually optimizing the mix and the operational execution across all three
+simultaneously, since each channel has a different P&L shape, a different
+inventory pool (or a shared one that needs careful allocation), and
+different compliance requirements.
