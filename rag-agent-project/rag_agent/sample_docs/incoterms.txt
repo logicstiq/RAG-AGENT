@@ -1,0 +1,30 @@
+Incoterms for E-commerce Sellers
+
+Incoterms define who is responsible for shipping costs, insurance, customs
+clearance, and risk of loss at each stage of an international shipment.
+They matter enormously for landed cost calculations, which in turn feed
+directly into margin analysis and pricing decisions for any SKU sourced
+overseas.
+
+FOB (Free On Board) means the seller is responsible for costs and risk up
+to loading the goods onto the shipping vessel at the port of origin. The
+buyer takes over risk and cost from that point, including ocean freight,
+insurance, and import duties. FOB is the most common term used by Amazon
+and other marketplace sellers importing from manufacturers in Asia, because
+it gives the buyer control over freight forwarder selection and shipping
+cost, which matters a lot when planning inventory replenishment timing.
+
+DDP (Delivered Duty Paid) shifts nearly all responsibility to the seller,
+who must handle shipping, insurance, customs clearance, and duty payment
+all the way to the buyer's specified location. This is simpler for the
+buyer but typically more expensive overall, since the seller builds in a
+margin on the logistics and duty handling.
+
+EXW (Ex Works) places minimum responsibility on the seller, who only needs
+to make the goods available at their own premises. The buyer handles
+everything else, including export clearance, which can be a problem for
+buyers unfamiliar with the origin country's export regulations.
+
+Choosing the wrong Incoterm is one of the most common landed-cost modeling
+mistakes in new import programs, because it's easy to forget which freight,
+insurance, and duty line items are already included in a quoted unit price.

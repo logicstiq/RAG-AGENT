@@ -1,0 +1,26 @@
+Safety Stock and Reorder Points
+
+Safety stock is the buffer inventory a company holds beyond expected demand
+to protect against uncertainty in demand forecasts and supplier lead times.
+Without safety stock, any spike in demand or delay in replenishment can
+trigger a stockout, which in e-commerce usually means lost sales, a Buy Box
+penalty, and in marketplace contexts a hit to account health metrics.
+
+A common way to calculate safety stock is:
+Safety Stock = Z-score x Standard Deviation of Demand x sqrt(Lead Time)
+
+The Z-score corresponds to the desired service level. A 95% service level
+uses a Z-score of 1.65, while a 99% service level uses roughly 2.33. Higher
+service levels require disproportionately more safety stock, which is why
+most operations teams tier their service-level targets by SKU velocity and
+margin rather than using one blanket number.
+
+The reorder point is the inventory level at which a new purchase order
+should be triggered, and is typically:
+Reorder Point = (Average Daily Demand x Lead Time in Days) + Safety Stock
+
+Lead time variability matters as much as demand variability. A supplier
+with a stable 30-day lead time but wildly inconsistent demand needs less
+safety stock than a supplier whose lead time swings between 20 and 60 days
+even with steady demand, because reorder point calculations are only as
+good as the lead time assumption feeding them.

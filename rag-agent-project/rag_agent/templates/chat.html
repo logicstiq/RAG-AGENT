@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Graph-Lite RAG Agent</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main>
+    <h1>Graph-Lite RAG Agent</h1>
+    <p class="subtitle">Ask a question, or drop in a new CSV/XLSX to query it directly.</p>
+
+    <div class="upload-row">
+      <label class="upload-btn" for="file-input">
+        <span>+ Upload CSV/XLSX</span>
+        <input id="file-input" type="file" accept=".csv,.xlsx,.xls" hidden />
+      </label>
+      <span id="upload-status"></span>
+    </div>
+    <p class="upload-note">Uploading a file replaces any previously loaded spreadsheet — questions will answer from the new file only.</p>
+
+    <div id="log"></div>
+
+    <form id="chat-form">
+      <input id="question" type="text" placeholder="e.g. What is safety stock?" autocomplete="off" />
+      <button type="submit">Ask</button>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("question");
+    const log = document.getElementById("log");
+    const fileInput = document.getElementById("file-input");
+    const uploadStatus = document.getElementById("upload-status");
+
+    function addEntry(role, text) {
+      const div = document.createElement("div");
+      div.className = "entry " + role;
+      div.textContent = text;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+      return div;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const question = input.value.trim();
+      if (!question) return;
+      addEntry("user", question);
+      input.value = "";
+      const thinking = addEntry("agent", "Thinking...");
+
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      });
+      const data = await res.json();
+      thinking.remove();
+
+      if (data.error) {
+        addEntry("agent", "Error: " + data.error);
+        return;
+      }
+      let text = data.answer;
+      if (data.sources && data.sources.length) {
+        text += "\n\nSources: " + data.sources.join(", ");
+      }
+      addEntry("agent", text);
+    });
+
+    fileInput.addEventListener("change", async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      uploadStatus.textContent = "Uploading " + file.name + "...";
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch("/api/upload-data", { method: "POST", body: formData });
+        const data = await res.json();
+
+        if (data.error) {
+          uploadStatus.textContent = "";
+          addEntry("agent", "Couldn't load " + file.name + ": " + data.error);
+          return;
+        }
+
+        uploadStatus.textContent = "";
+        for (const t of data.tables) {
+          addEntry(
+            "agent",
+            "Loaded " + t.name + " — " + t.rows + " rows. Columns: " + t.columns.join(", ") +
+            "\n\nYou can ask about this data now."
+          );
+        }
+      } catch (err) {
+        uploadStatus.textContent = "";
+        addEntry("agent", "Upload failed: " + err);
+      } finally {
+        fileInput.value = "";
+      }
+    });
+  </script>
+</body>
+</html>

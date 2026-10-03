@@ -1,0 +1,28 @@
+Amazon FBA Inventory Performance Basics
+
+The Inventory Performance Index (IPI) score is Amazon's composite measure
+of how efficiently a seller manages FBA inventory. It factors in excess
+inventory, sell-through rate, stranded inventory, and in-stock rate. A low
+IPI score can trigger storage limits, which directly constrains how much
+new inventory a seller can send in, making replenishment planning and
+safety stock calculations even more important when the score is borderline.
+
+Excess inventory is stock that has been sitting in a fulfillment center
+without selling at a healthy pace relative to its size and sales history.
+Amazon flags it because it increases long-term storage fees and ties up
+warehouse capacity. The fix is almost always a demand-side one: either
+discount the SKU to move it, create a removal order, or adjust future
+purchase order quantities using a tighter reorder point calculation.
+
+Stranded inventory refers to units physically in a fulfillment center that
+aren't appearing as available for sale, usually due to a listing error,
+missing content, or a suppressed detail page. Unlike excess inventory,
+stranded inventory is a catalog/listing problem, not a demand-planning
+problem, and needs to be fixed in Seller Central's listing quality tools
+rather than through purchase order adjustments.
+
+In-stock rate measures the percentage of time a SKU had available
+sellable inventory. It is one of the clearest downstream signals of whether
+a seller's reorder points and safety stock levels are actually working,
+since a low in-stock rate usually traces back to either an underestimated
+reorder point or a lead-time assumption that no longer matches reality.
